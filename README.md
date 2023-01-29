@@ -1,40 +1,49 @@
 
 Comandos de DML basicos:
 
-
+<p></p><p></p>
 INSERT: Adiciona novos registros em uma tabela.
+```
 INSERT INTO tabela_nome (coluna1, coluna2, coluna3) VALUES (valor1, valor2, valor3);
-
+```
+<p></p>
 UPDATE: Atualiza os dados existentes em uma tabela.
+```
 UPDATE tabela_nome SET coluna1 = novo_valor WHERE condicao;
-
+```
+<p></p><p></p>
 DELETE: Exclui registros de uma tabela.
+```
 DELETE FROM tabela_nome WHERE condicao;
-
+```
+<p></p><p></p>
 SELECT: Busca dados de uma tabela.
+```
 SELECT coluna1, coluna2 FROM tabela_nome WHERE condicao;
-
+```
+<p></p><p></p>
 SELECT DISTINCT: Recupera dados únicos de uma tabela.
+```
 SELECT DISTINCT coluna1 FROM tabela_nome;
+```
 
+<p></p><p></p><p></p>
+Comandos de DML com Tratamentos:<p></p>
 
-
-Comandos de DML com Tratamentos:
-
-LIKE: Utilizado para buscar valores semelhantes em uma coluna. Por exemplo, para encontrar todos os registros com nomes que começam com "Jo":
+LIKE: Utilizado para buscar valores semelhantes em uma coluna. Por exemplo, para encontrar todos os registros com nomes que começam com "Jo":<p></p>
 SELECT * FROM tabela WHERE nome LIKE 'Jo%';
 
 
-IN: Utilizado para buscar valores específicos em uma coluna. Por exemplo, para encontrar todos os registros com idades entre 20 e 30:
+IN: Utilizado para buscar valores específicos em uma coluna. Por exemplo, para encontrar todos os registros com idades entre 20 e 30:<p></p>
 SELECT * FROM tabela WHERE idade IN (20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30);
 
 
-NOT IN: Utilizado para excluir valores específicos em uma coluna. Por exemplo, para encontrar todos os registros com idades que não estão entre 20 e 30:
+NOT IN: Utilizado para excluir valores específicos em uma coluna. Por exemplo, para encontrar todos os registros com idades que não estão entre 20 e 30:<p></p>
 SELECT * FROM tabela WHERE idade NOT IN (20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30);
-
+<p></p><p></p>
 
 -- REGEX
-Aqui estão alguns exemplos de como usar expressões regulares para tratar informações em consultas My:
+Aqui estão alguns exemplos de como usar expressões regulares para tratar informações em consultas My:<p></p>
 REGEXP: Utilizado para buscar valores que correspondem a uma expressão regular específica. Por exemplo, para encontrar todos os registros com e-mails que terminam com "gmail.com":
 
 SELECT * FROM tabela WHERE email REGEXP 'gmail\.com$';
