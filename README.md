@@ -1,5 +1,6 @@
 
-## Comandos de DML basicos:
+## Comandos de DML basicos: ⚡️
+
 
 <details>
   <summary>Clique aqui para ver mais informações</summary>
@@ -40,7 +41,7 @@ SELECT DISTINCT coluna1 FROM tabela_nome;
 </details>
 <br>
 
-## Comandos de DML com Tratamentos:
+## Comandos de DML com Tratamentos:✨
 <details>
 <summary>Clique aqui para ver mais informações</summary>
 <br>
@@ -191,7 +192,7 @@ Esse comando irá calcular o total com desconto, multiplicando a quantidade pelo
 </details>
 <br>
 
-## Comandos DML de União para MySQL:
+## Comandos DML de União para MySQL:📌
 <details>
 <summary>Clique aqui para ver mais informações</summary>
 
