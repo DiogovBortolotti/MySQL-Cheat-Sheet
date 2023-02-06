@@ -47,7 +47,7 @@ SELECT DISTINCT coluna1 FROM tabela_nome;
 <br>
 <p></p>
 LIKE: Utilizado para buscar valores semelhantes em uma coluna. Por exemplo, para encontrar todos os registros com nomes
-que começam com "Jo":<p></p>
+que começam com "Jo" a "%" serve para pegar tudo apos aquela informação:<p></p>
 	
 ```
 SELECT * FROM tabela WHERE nome LIKE 'Jo%';
@@ -188,9 +188,49 @@ SELECT (SUM(quantidade) * preco) - (SUM(quantidade) * preco * desconto/100) as '
 ```
 	
 Esse comando irá calcular o total com desconto, multiplicando a quantidade pelo preco e subtraindo o valor do desconto.
+	
+
+## Outros
+
+SUBQUERY: Utiliza uma consulta dentro de outra consulta.<p></p>
+	
+```
+SELECT coluna1
+FROM tabela1
+WHERE coluna2 IN ( SELECT coluna2 FROM tabela2 WHERE condicao);
+```
+
+GROUP BY: Agrupa resultados por uma ou mais colunas.
+<p></p>
+	
+```
+SELECT coluna1, SUM(coluna2) 
+FROM tabela
+GROUP BY coluna1;
+```
+
+HAVING: Utilizado com o GROUP BY para filtrar resultados agrupados.<p></p>
+	
+```
+SELECT coluna1, SUM(coluna2)
+FROM tabela
+GROUP BY coluna1 
+HAVING SUM(coluna2) > valor;
+```
+
+LIMIT: Limita o número de resultados retornados.
+<p></p>
+	
+```
+SELECT coluna1, coluna2
+FROM tabela
+LIMIT 10;
+```	
+	
 <br>
 </details>
 <br>
+
 
 ## Comandos DML de União para MySQL:📌
 <details>
@@ -201,88 +241,23 @@ JOIN: Recupera dados de várias tabelas relacionadas.<p></p>
 	
 ```
 SELECT
-tabela1.coluna1,
-tabela2.coluna2
-FROM
-tabela1
+tabela1.coluna1, tabela2.coluna2
+FROM tabela1 
 JOIN tabela2 ON
 tabela1.coluna_relacionada = tabela2.coluna_relacionada
-WHERE
-condicao;
+WHERE condicao;
 ```
 
 UNION: Combina resultados de várias consultas SELECT.<p></p>
 	
 ```
-SELECT
-coluna1
-FROM
-tabela1
-WHERE
-condicao
+SELECT coluna1
+FROM tabela1
+WHERE condicao
 UNION
-SELECT
-coluna2
-FROM
-tabela2
-WHERE
-condicao;
-```
-
-SUBQUERY: Utiliza uma consulta dentro de outra consulta.<p></p>
-	
-```
-SELECT
-coluna1
-FROM
-tabela1
-WHERE
-coluna2 IN (
-SELECT
-coluna2
-FROM
-tabela2
-WHERE
-condicao);
-```
-
-GROUP BY: Agrupa resultados por uma ou mais colunas.
-<p></p>
-	
-```
-SELECT
-coluna1,
-SUM(coluna2)
-FROM
-tabela
-GROUP BY
-coluna1;
-```
-
-HAVING: Utilizado com o GROUP BY para filtrar resultados agrupados.<p></p>
-	
-```
-SELECT
-coluna1,
-SUM(coluna2)
-FROM
-tabela
-GROUP BY
-coluna1
-HAVING
-SUM(coluna2) > valor;
-```
-
-LIMIT: Limita o número de resultados retornados.
-<p></p>
-	
-```
-SELECT
-coluna1,
-coluna2
-FROM
-tabela
-LIMIT 10;
+SELECT coluna2
+FROM tabela2
+WHERE condicao;
 ```
 
 INNER JOIN: Recupera dados de várias tabelas relacionadas e retorna somente os registros que possuem correspondência
@@ -290,30 +265,22 @@ entre as tabelas relacionadas.
 <p></p>
 	
 ```
-SELECT
-tabela1.coluna1,
-tabela2.coluna2
-FROM
-tabela1
+SELECT tabela1.coluna1, tabela2.coluna2
+FROM tabela1
 INNER JOIN tabela2 ON
 tabela1.coluna_relacionada = tabela2.coluna_relacionada
-WHERE
-condicao;
+WHERE condicao;
 ```
 
 OUTER JOIN: Retorna os dados de ambas as tabelas, incluindo os registros que não possuem correspondência entre as
 tabelas relacionadas.<p></p>
 	
 ```
-SELECT
-tabela1.coluna1,
-tabela2.coluna2
-FROM
-tabela1
+SELECT tabela1.coluna1, tabela2.coluna2
+FROM tabela1
 LEFT OUTER JOIN tabela2 ON
 tabela1.coluna_relacionada = tabela2.coluna_relacionada
-WHERE
-condicao;
+WHERE condicao;
 ```
 
 
@@ -324,48 +291,23 @@ JOIN com subquery: Utiliza uma subquery para selecionar dados de uma tabela rela
 principal.<p></p>
 	
 ```
-SELECT
-tabela1.coluna1,
-tabela2.coluna2
-FROM
-tabela1
-JOIN (
-SELECT
-coluna2,
-coluna3
-FROM
-tabela2
-WHERE
-condicao) AS tabela2 ON
-tabela1.coluna_relacionada = tabela2.coluna_relacionada
-WHERE
-condicao;
+SELECT tabela1.coluna1, tabela2.coluna2 
+FROM tabela1
+JOIN (SELECT coluna2, coluna3 FROM tabela2 WHERE condicao) AS tabela2 ON tabela1.coluna_relacionada = tabela2.coluna_relacionada
+WHERE condicao;
 ```
 
 UNION com ordenação: Combina resultados de várias consultas SELECT e os ordena de acordo com uma coluna específica.<p></p>
 	
 ```
-SELECT
-coluna1,
-coluna2
-FROM
-tabela1
-WHERE
-condicao
-ORDER BY
-coluna
+SELECT a.coluna1, a.coluna2, a.coluna3
+FROM tabela1 a
+WHERE a.coluna3 = 'valor1'
 UNION
-SELECT
-coluna1,
-coluna2
-FROM
-tabela2
-WHERE
-condicao
-ORDER BY
-coluna2
-ORDER BY
-coluna2;
+SELECT b.coluna1, b.coluna2, b.coluna3
+FROM table2 b
+WHERE b.column4 = 'valor2'
+ORDER BY coluna1 ASC;
 ```
 
 Subquery com JOIN: Utiliza uma subquery para selecionar dados de uma tabela e juntá-los à tabela principal através de um
@@ -373,28 +315,10 @@ JOIN.
 <p></p>
 	
 ```
-SELECT
-tabela1.coluna1,
-tabela2.coluna2
-FROM
-tabela1
-JOIN (
-SELECT
-coluna2,
-coluna3
-FROM
-tabela2
-WHERE
-condicao) AS tabela2 ON
-tabela1.coluna_relacionada = tabela2.coluna_relacionada
-WHERE
-tabela1.coluna1 IN (
-SELECT
-coluna4
-FROM
-tabela3
-WHERE
-condicao);
+SELECT tabela1.coluna1, tabela2.coluna2
+FROM tabela1
+JOIN (SELECT coluna2, coluna3 FROM tabela2 WHERE condicao) AS tabela2 ON tabela1.coluna_relacionada = tabela2.coluna_relacionada
+WHERE tabela1.coluna1 IN (SELECT coluna4 FROM tabela3 WHERE condicao);
 ```
 
 
@@ -402,41 +326,37 @@ GROUP BY com HAVING: Agrupa resultados por uma ou mais colunas e utiliza o HAVIN
 <p></p>
 	
 ```
-SELECT
-coluna1,
-SUM(coluna2),
-AVG(coluna3)
-FROM
-tabela
-GROUP BY
-coluna1
-HAVING
-SUM(coluna2) > valor
-AND AVG(coluna3) < outro_valor; 
+SELECT coluna1, SUM(coluna2), AVG(coluna3) 
+FROM tabela
+GROUP BY coluna1
+HAVING SUM(coluna2) > valor AND AVG(coluna3) < outro_valor; 
 ```
 
 EXISTS: Verifica se existem valores correspondentes em uma subquery. 
 <p></p>
 	
 ```
-SELECT coluna1,
-coluna2 FROM tabela1 WHERE EXISTS ( SELECT 1 FROM tabela2 WHERE
-tabela1.coluna_relacionada=tabela2.coluna_relacionada AND condicao);
+SELECT coluna1, coluna2 
+FROM tabela1 
+WHERE EXISTS (SELECT 1 FROM tabela2 WHERE tabela1.coluna_relacionada=tabela2.coluna_relacionada AND condicao);
 ```
 
 NOT EXISTS: Verifica se não existem valores correspondentes em uma subquery. 
 <p></p>
 	
 ```
-SELECT coluna1, coluna2 FROM tabela1 WHERE NOT EXISTS ( SELECT 1 FROM tabela2 WHERE
-tabela1.coluna_relacionada=tabela2.coluna_relacionada AND condicao); 
+SELECT coluna1, coluna2 
+FROM tabela1
+WHERE NOT EXISTS (SELECT 1 FROM tabela2 WHERE tabela1.coluna_relacionada=tabela2.coluna_relacionada AND condicao); 
 ```
 INNER JOIN com ON e USING: Utiliza duas condições de junção, uma com ON e outra com USING, para recuperar dados de várias tabelas relacionadas. 
 <p></p>
 	
 ```
-SELECT
-tabela1.coluna1, tabela2.coluna2 FROM tabela1 INNER JOIN tabela2 ON tabel;
+SELECT tabela1.coluna1, tabela2.coluna2 
+FROM tabela1 a
+INNER JOIN tabela2 b ON a.coluna1 = b.coluna2
+WHERE a.coluna3 = 'valor';
 ```
 Observação estes exemplos de join podem ser utilizando não somente em SELECT mas tambem em UPDATE,DELETE ao utilizar deve-se tomar muito cuidado pois pode dar
 perda de dados importantes.
