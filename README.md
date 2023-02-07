@@ -226,7 +226,47 @@ SELECT coluna1, coluna2
 FROM tabela
 LIMIT 10;
 ```	
+
 	
+Subquery com JOIN: Utiliza uma subquery para selecionar dados de uma tabela e juntá-los à tabela principal através de um
+JOIN.
+<p></p>
+	
+```
+SELECT tabela1.coluna1, tabela2.coluna2
+FROM tabela1
+JOIN (SELECT coluna2, coluna3 FROM tabela2 WHERE condicao) AS tabela2 ON tabela1.coluna_relacionada = tabela2.coluna_relacionada
+WHERE tabela1.coluna1 IN (SELECT coluna4 FROM tabela3 WHERE condicao);
+```
+
+
+GROUP BY com HAVING: Agrupa resultados por uma ou mais colunas e utiliza o HAVING para filtrar resultados agrupados.
+<p></p>
+	
+```
+SELECT coluna1, SUM(coluna2), AVG(coluna3) 
+FROM tabela
+GROUP BY coluna1
+HAVING SUM(coluna2) > valor AND AVG(coluna3) < outro_valor; 
+```
+
+EXISTS: Verifica se existem valores correspondentes em uma subquery. 
+<p></p>
+	
+```
+SELECT coluna1, coluna2 
+FROM tabela1 
+WHERE EXISTS (SELECT 1 FROM tabela2 WHERE tabela1.coluna_relacionada=tabela2.coluna_relacionada AND condicao);
+```
+
+NOT EXISTS: Verifica se não existem valores correspondentes em uma subquery. 
+<p></p>
+	
+```
+SELECT coluna1, coluna2 
+FROM tabela1
+WHERE NOT EXISTS (SELECT 1 FROM tabela2 WHERE tabela1.coluna_relacionada=tabela2.coluna_relacionada AND condicao); 
+```
 <br>
 </details>
 <br>
@@ -310,45 +350,6 @@ WHERE b.column4 = 'valor2'
 ORDER BY coluna1 ASC;
 ```
 
-Subquery com JOIN: Utiliza uma subquery para selecionar dados de uma tabela e juntá-los à tabela principal através de um
-JOIN.
-<p></p>
-	
-```
-SELECT tabela1.coluna1, tabela2.coluna2
-FROM tabela1
-JOIN (SELECT coluna2, coluna3 FROM tabela2 WHERE condicao) AS tabela2 ON tabela1.coluna_relacionada = tabela2.coluna_relacionada
-WHERE tabela1.coluna1 IN (SELECT coluna4 FROM tabela3 WHERE condicao);
-```
-
-
-GROUP BY com HAVING: Agrupa resultados por uma ou mais colunas e utiliza o HAVING para filtrar resultados agrupados.
-<p></p>
-	
-```
-SELECT coluna1, SUM(coluna2), AVG(coluna3) 
-FROM tabela
-GROUP BY coluna1
-HAVING SUM(coluna2) > valor AND AVG(coluna3) < outro_valor; 
-```
-
-EXISTS: Verifica se existem valores correspondentes em uma subquery. 
-<p></p>
-	
-```
-SELECT coluna1, coluna2 
-FROM tabela1 
-WHERE EXISTS (SELECT 1 FROM tabela2 WHERE tabela1.coluna_relacionada=tabela2.coluna_relacionada AND condicao);
-```
-
-NOT EXISTS: Verifica se não existem valores correspondentes em uma subquery. 
-<p></p>
-	
-```
-SELECT coluna1, coluna2 
-FROM tabela1
-WHERE NOT EXISTS (SELECT 1 FROM tabela2 WHERE tabela1.coluna_relacionada=tabela2.coluna_relacionada AND condicao); 
-```
 INNER JOIN com ON e USING: Utiliza duas condições de junção, uma com ON e outra com USING, para recuperar dados de várias tabelas relacionadas. 
 <p></p>
 	
@@ -364,6 +365,9 @@ WHERE a.coluna3 = 'valor';
   <img src="https://raw.githubusercontent.com/DiogovBortolotti/MySQL-Cheat-Sheet/main/Imagens/LEFT%20JOIN.png" width="620" height="420"/>
 </p>
 </details>
+
+
+
 
 Observação estes exemplos de join podem ser utilizando não somente em SELECT mas tambem em UPDATE,DELETE ao utilizar deve-se tomar muito cuidado pois pode dar
 perda de dados importantes.
