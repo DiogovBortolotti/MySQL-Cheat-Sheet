@@ -359,9 +359,9 @@ INNER JOIN tabela2 b ON a.coluna1 = b.coluna2
 WHERE a.coluna3 = 'valor';
 ```
 <details>
-<summary>Diagrama Left Join</summary>
+<summary><p align="center">DIAGRAMA LEFT JOIN</p></summary>
 <p align="center">
-  <img src="link da imagem" width="320" height="320"/>
+  <img src="https://raw.githubusercontent.com/DiogovBortolotti/MySQL-Cheat-Sheet/main/Imagens/LEFT%20JOIN.png" width="620" height="420"/>
 </p>
 </details>
 
