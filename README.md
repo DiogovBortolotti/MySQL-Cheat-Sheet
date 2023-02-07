@@ -358,6 +358,13 @@ FROM tabela1 a
 INNER JOIN tabela2 b ON a.coluna1 = b.coluna2
 WHERE a.coluna3 = 'valor';
 ```
+<details>
+<summary>Diagrama Left Join</summary>
+<p align="center">
+  <img src="link da imagem" width="320" height="320"/>
+</p>
+</details>
+
 Observação estes exemplos de join podem ser utilizando não somente em SELECT mas tambem em UPDATE,DELETE ao utilizar deve-se tomar muito cuidado pois pode dar
 perda de dados importantes.
 
