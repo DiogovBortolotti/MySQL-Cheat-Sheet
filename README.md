@@ -347,9 +347,9 @@ Existem 4 tipos de junções (joins) diferentes que você pode usar para combina
 	
 
 <details>
-<summary><p align="center">DIAGRAMA LEFT JOIN ---[EM CONSTRUÇÃO]</p></summary>
+<summary><p align="center">Mapa dos JOINS ---[EM CONSTRUÇÃO]</p></summary>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/DiogovBortolotti/MySQL-Cheat-Sheet/main/imagens/Joins.png" width="620" height="420"/>
+  <img src="https://raw.githubusercontent.com/DiogovBortolotti/MySQL-Cheat-Sheet/main/imagens/Joins.png" width="100%" height="100%"/>
 </p>
 </details>
 
