@@ -3,7 +3,7 @@
 
 
 <details>
-  <summary>Clique aqui para ver mais informações</summary>
+  <summary>Basico</summary>
 <p></p>
 
 <br>
@@ -38,7 +38,7 @@ UPDATE: Atualiza os dados existentes em uma tabela.<p></p>
 ```sql
 UPDATE tabela_nome SET coluna1 = novo_valor WHERE condicao;
 ```
-A palavra `set` será utilizada para definir e substituir informações na coluna selecionada por uma nova informação.
+A palavra `set` será utilizada para definir a substituição informações na coluna selecionada por uma nova informação.
 <p></p>
 
 DELETE: Exclui registros de uma tabela.<p></p>
@@ -70,7 +70,7 @@ Em resumo, a utilização de transações com COMMIT e ROLLBACK ajuda a garantir
 
 ## Comandos de DML com Tratamentos:✨
 <details>
-<summary>Clique aqui para ver mais informações</summary>
+<summary>Intermediário</summary>
 <br>
 <p></p>
 LIKE: Utilizado para buscar valores semelhantes em uma coluna. Por exemplo, para encontrar todos os registros com nomes
@@ -316,7 +316,7 @@ EXISTS: Verifica se existem valores correspondentes em uma subquery.
 ```sql
 SELECT coluna1, coluna2 
 FROM tabela1 
-WHERE EXISTS (SELECT 1 FROM tabela2 WHERE tabela1.coluna_relacionada=tabela2.coluna_relacionada AND condicao);
+WHERE EXISTS (SELECT * FROM tabela2 WHERE tabela1.coluna_relacionada=tabela2.coluna_relacionada AND condicao);
 ```
 
 NOT EXISTS: Verifica se não existem valores correspondentes em uma subquery. 
@@ -325,17 +325,37 @@ NOT EXISTS: Verifica se não existem valores correspondentes em uma subquery.
 ```sql
 SELECT coluna1, coluna2 
 FROM tabela1
-WHERE NOT EXISTS (SELECT 1 FROM tabela2 WHERE tabela1.coluna_relacionada=tabela2.coluna_relacionada AND condicao); 
+WHERE NOT EXISTS (SELECT * FROM tabela2 WHERE tabela1.coluna_relacionada=tabela2.coluna_relacionada AND condicao); 
 ```
 <br>
 </details>
 <br>
 
 
-## Comandos DML de União para MySQL:📌
+## Comandos DML de Ligação:📌
 <details>
-<summary>Clique aqui para ver mais informações</summary>
+<summary>Avançado</summary>
+	
+<br></br>
+Existem 4 tipos de junções (joins) diferentes que você pode usar para combinar dados de duas ou mais tabelas: `INNER JOIN`, `LEFT JOIN`, `RIGHT JOIN` e `FULL OUTER JOIN`.
+<p></p>
 
+* `INNER JOIN`: Este tipo de junção retorna somente as linhas que correspondem a ambas as tabelas. É o tipo de junção mais comum.<p></p>
+* `LEFT JOIN (OUTER)`: Este tipo de junção retorna todas as linhas da tabela à esquerda (especificada primeiro na cláusula FROM), incluindo as linhas que não correspondem à tabela à direita. As colunas não correspondentes da tabela à direita são preenchidas com NULL.<p></p>
+* `RIGHT JOIN (OUTER)`: Este tipo de junção é o oposto do LEFT JOIN, retornando todas as linhas da tabela à direita e as linhas não correspondentes da tabela à esquerda são preenchidas com NULL.<p></p>
+* `FULL OUTER JOIN`: Este tipo de junção retorna todas as linhas de ambas as tabelas, independentemente se existe ou não correspondência entre elas. Se uma linha não corresponde, as colunas correspondentes são preenchidas com NULL.<p></p>
+	
+
+<details>
+<summary><p align="center">DIAGRAMA LEFT JOIN ---[EM CONSTRUÇÃO]</p></summary>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DiogovBortolotti/MySQL-Cheat-Sheet/main/Imagens/LEFT%20JOIN.png" width="620" height="420"/>
+</p>
+</details>
+
+	
+	
+	
 <br></br>
 JOIN: Recupera dados de várias tabelas relacionadas.<p></p>
 	
@@ -348,7 +368,18 @@ tabela1.coluna_relacionada = tabela2.coluna_relacionada
 WHERE condicao;
 ```
 
-UNION: Combina resultados de várias consultas SELECT.<p></p>
+
+JOIN com subquery: Utiliza uma subquery para selecionar dados de uma tabela relacionada antes de juntá-los à tabela
+principal.<p></p>
+	
+```sql
+SELECT tabela1.coluna1, tabela2.coluna2 
+FROM tabela1
+JOIN (SELECT coluna2, coluna3 FROM tabela2 WHERE condicao) AS tabela2 ON tabela1.coluna_relacionada = tabela2.coluna_relacionada
+WHERE condicao;
+```
+
+A cláusula UNION é usada para combinar resultados de duas ou mais consultas SELECT em uma única tabela de resultados. A sintaxe básica do UNION é a seguinte<p></p>
 	
 ```sql
 SELECT tabela1.coluna1
@@ -360,18 +391,6 @@ FROM tabela2
 WHERE condicao;
 ```
 
-INNER JOIN: Recupera dados de várias tabelas relacionadas e retorna somente os registros que possuem correspondência
-entre as tabelas relacionadas.
-<p></p>
-	
-```sql
-SELECT tabela1.coluna1, tabela2.coluna2
-FROM tabela1
-INNER JOIN tabela2 ON
-tabela1.coluna_relacionada = tabela2.coluna_relacionada
-WHERE condicao;
-```
-
 OUTER JOIN: Retorna os dados de ambas as tabelas, incluindo os registros que não possuem correspondência entre as
 tabelas relacionadas.<p></p>
 	
@@ -380,19 +399,6 @@ SELECT tabela1.coluna1, tabela2.coluna2
 FROM tabela1
 LEFT OUTER JOIN tabela2 ON
 tabela1.coluna_relacionada = tabela2.coluna_relacionada
-WHERE condicao;
-```
-
-
-
-
-JOIN com subquery: Utiliza uma subquery para selecionar dados de uma tabela relacionada antes de juntá-los à tabela
-principal.<p></p>
-	
-```sql
-SELECT tabela1.coluna1, tabela2.coluna2 
-FROM tabela1
-JOIN (SELECT coluna2, coluna3 FROM tabela2 WHERE condicao) AS tabela2 ON tabela1.coluna_relacionada = tabela2.coluna_relacionada
 WHERE condicao;
 ```
 
@@ -408,7 +414,19 @@ FROM table2 b
 WHERE b.column4 = 'valor2'
 ORDER BY coluna1 ASC;
 ```
-
+<p></p>
+INNER JOIN: Recupera dados de várias tabelas relacionadas e retorna somente os registros que possuem correspondência
+entre as tabelas relacionadas.
+<p></p>
+	
+```sql
+SELECT tabela1.coluna1, tabela2.coluna2
+FROM tabela1
+INNER JOIN tabela2 ON
+tabela1.coluna_relacionada = tabela2.coluna_relacionada
+WHERE condicao;
+```
+<p></p>
 INNER JOIN com ON e USING: Utiliza duas condições de junção, uma com ON e outra com USING, para recuperar dados de várias tabelas relacionadas. 
 <p></p>
 	
@@ -418,12 +436,31 @@ FROM tabela1 a
 INNER JOIN tabela2 b ON a.coluna1 = b.coluna2
 WHERE a.coluna3 = 'valor';
 ```
-<details>
-<summary><p align="center">DIAGRAMA LEFT JOIN</p></summary>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/DiogovBortolotti/MySQL-Cheat-Sheet/main/Imagens/LEFT%20JOIN.png" width="620" height="420"/>
-</p>
-</details>
+
+<p></p>
+LEFT JOIN: une todas as linhas da tabela da esquerda com as correspondentes da tabela da direita, preenchendo com valores NULL caso não haja correspondência.
+
+```sql
+SELECT clientes.id_cliente, clientes.nome, pedidos.id_pedido
+FROM clientes
+LEFT JOIN pedidos
+ON clientes.id_cliente = pedidos.id_cliente;
+RIGHT JOIN:
+```
+<p></p>
+RIGHT JOIN: une todas as linhas da tabela da direita com as correspondentes da tabela da esquerda, preenchendo com valores NULL caso não haja correspondência.
+
+```sql
+SELECT clientes.id_cliente, clientes.nome, pedidos.id_pedido
+FROM clientes
+RIGHT JOIN pedidos
+ON clientes.id_cliente = pedidos.id_cliente;
+```
+<p></p>
+
+Tanto o `LEFT JOIN` quanto o `RIGHT JOIN` são usados para unir as tabelas clientes e pedidos pela coluna id_cliente. A diferença é que, no LEFT JOIN, todas as linhas da tabela da esquerda (clientes) serão incluídas no resultado, enquanto que, no RIGHT JOIN, todas as linhas da tabela da direita (pedidos) serão incluídas no resultado. Se uma linha na tabela da esquerda ou da direita não tiver correspondência na tabela oposta, o valor dessas colunas será NULL.
+<p></p>
+
 
 
 <p></p>
@@ -439,7 +476,7 @@ INNER JOIN pedidos ON clientes.id = pedidos.id_cliente
 INNER JOIN itens_pedido ON pedidos.id = itens_pedido.id_pedido and pedidos.data_fiscal = itens_pedido.data_fiscal
 WHERE clientes.nome = 'Diogo' AND pedidos.data BETWEEN '2022-01-01' AND '2022-12-31'
 ```
-<p></p>
+<p></p>INNER JOIN: Recupera dados de várias tabelas relacionadas e retorna somente os registros que possuem correspondência entre as tabelas relacionadas.
 Para melhorar a eficiência e clareza do código, é uma boa prática utilizar nomes abreviados das tabelas nas consultas.
 <p></p>
 
@@ -453,13 +490,17 @@ WHERE cl.nome = 'Diogo' AND ped.data BETWEEN '2022-01-01' AND '2022-12-31'
 <p></p>
 
 
+<p></p>
+Extras:mag::
+<p></p>
 
-Observação estes exemplos de join podem ser utilizando não somente em SELECT mas tambem em UPDATE,DELETE ao utilizar deve-se tomar muito cuidado pois pode dar
-perda de dados importantes.
+Para garantir a efetividade da consulta e preservar a performance do banco de dados, é importante limitar a quantidade de informações retornadas pela consulta e realizar as ligações entre as tabelas de forma adequada. Uma boa prática é sempre adicionar o comando `limit` no final da consulta para limitar o número de resultados retornados.
+<p></p>
+
+E possivel a utilização de JOINs em operações de `update` e `delete` e devem ser realizadas com muita atenção, já que pode haver perda de dados importantes.
 
 <br>
 </details>
 <br>
 
 
-Extras:
