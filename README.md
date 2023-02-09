@@ -13,19 +13,6 @@ INSERT: Adiciona novos registros em uma tabela.<p></p>
 INSERT INTO tabela_nome (coluna1, coluna2, coluna3) VALUES (valor1, valor2, valor3);
 ```
 <p></p>
-UPDATE: Atualiza os dados existentes em uma tabela.<p></p>
-
-```sql
-UPDATE tabela_nome SET coluna1 = novo_valor WHERE condicao;
-```
-<p></p>
-
-DELETE: Exclui registros de uma tabela.<p></p>
-
-```sql
-DELETE FROM tabela_nome WHERE condicao;
-```
-<p></p>
 SELECT: Busca dados de uma tabela.<p></p>
 
 ```sql
@@ -37,6 +24,46 @@ SELECT DISTINCT: Recupera dados únicos de uma tabela.<p></p>
 ```sql
 SELECT DISTINCT coluna1 FROM tabela_nome;
 ```
+<br>
+<p></p>
+	
+:warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: 
+	
+**Ao realizar atualizações e exclusões em banco de dados, é fundamental ter extrema atenção, uma vez que o risco de causar danos irreparáveis é muito alto. Em especial, ao executar os comandos sem a utilização da cláusula WHERE, todos os registros na tabela serão afetados. Para preservar a integridade dos dados, é recomendado sempre utilizar transações, que permitem o uso dos comandos `COMMIT` e `ROLLBACK`. Quando se trata de operações em grande escala, a prudência deve ser ainda maior.**
+
+	
+<p></p>
+UPDATE: Atualiza os dados existentes em uma tabela.<p></p>
+
+```sql
+UPDATE tabela_nome SET coluna1 = novo_valor WHERE condicao;
+```
+A palavra `set` será utilizada para definir e substituir informações na coluna selecionada por uma nova informação.
+<p></p>
+
+DELETE: Exclui registros de uma tabela.<p></p>
+
+```sql
+DELETE FROM tabela_nome WHERE condicao;
+```	
+
+	
+<br><br>
+<p></p>	
+<br>
+<details>
+<summary>Transações(COMMIT/ROLLBACK)</summary>
+<br>
+Em banco de dados, uma transação é uma unidade lógica de trabalho que agrupa uma série de operações que devem ser executadas de forma atômica, ou seja, se todas as operações da transação forem bem-sucedidas, as alterações serão confirmadas, caso contrário, serão desfeitas.
+<p>
+
+`COMMIT` é um comando utilizado para confirmar as alterações realizadas durante uma transação. A partir do momento em que um COMMIT é executado, as alterações são permanentes e ficam disponíveis para outras transações.
+
+`ROLLBACK` é um comando utilizado para desfazer as alterações realizadas durante uma transação. Se uma transação não for bem-sucedida, o ROLLBACK pode ser executado para desfazer as alterações e restaurar o banco de dados ao seu estado anterior.
+
+Em resumo, a utilização de transações com COMMIT e ROLLBACK ajuda a garantir a integridade dos dados em um banco de dados, permitindo que as operações sejam executadas de forma segura e controlada.
+</details>	
+	
 <br>
 </details>
 <br>
@@ -103,14 +130,38 @@ Esse comando irá selecionar todas as linhas da tabela onde o valor do campo cor
 "$" indica o final da string
 Essa expressão regular corresponde a uma string que começa e termina com duas letras maiúsculas e contém quatro números consecutivos no meio, como "AB1234CD".
 <p></p>
-Outro exemplo:<p></p>
 	
 ```sql
 SELECT * FROM tabela WHERE campo REGEXP '^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$';
 ```
 Esse comando irá selecionar todas as linhas da tabela onde o valor do campo corresponde à expressão regular especificada. A expressão regular usada nesse exemplo é "^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+.[a-zA-Z]{2,})$", que é uma expressão regular para validação de email.
+	
+## STRING	
+<p></p>
+O MySQL possui várias funções de string que podem ser usadas para manipular o conteúdo de colunas. Algumas das funções mais comuns incluem:
 
-## STRING
+* `AS`: é uma palavra reservada no MySQL que permite que você atribua um alias a uma coluna ou tabela.<p></p>
+* `UPPER`: Converte todas as letras em uma string para maiúsculas.<p></p>
+* `LOWER`: Converte todas as letras em uma string para minúsculas.<p></p>
+* `INITCAP`: Converte a primeira letra de cada palavra em uma string para maiúscula.<p></p>
+* `CONCAT`: Concatena duas ou mais strings.<p></p>
+* `SUBSTRING`: Extrai uma porção de uma string.<p></p>
+* `LENGTH`: Retorna o comprimento de uma string.<p></p>
+* `TRIM`: Remove espaços em branco ou outros caracteres de uma string.<p></p>
+* `REPLACE`: Substitui uma parte de uma string por outra.
+<p></p>
+Estas são apenas algumas das funções de string disponíveis no MySQL. É importante ressaltar que o uso correto dessas funções depende do contexto em que estão sendo utilizadas e é importante ler a documentação oficial do MySQL para entender seu uso correto.
+	
+<p></p>
+Alem das consultas dos campos podemos utilizar a função REGEXP_REPLACE no comando SELECT para tratar a informação de acordo com a expressão regular especificada. Por exemplo, o seguinte código remove todos os caracteres que não são números de uma string
+<p></p>	
+	
+```sql
+SELECT REGEXP_REPLACE('Exemplo de 123 string', '[^0-9]', '') AS resultado;
+```
+<p></p>	
+A função REGEXP_REPLACE é uma poderosa ferramenta de tratamento de strings no MySQL, permitindo a substituição de padrões específicos com facilidade, tornando possível realizar tarefas como remover caracteres indesejados, substituir espaços por sublinhados, entre outras aplicações criativas.
+
 <p></p>
 Concatenação de strings: Para concatenar strings, podemos usar o operador "CONCAT()". Por exemplo, para concatenar o
 nome e sobrenome de uma pessoa em uma única coluna:
@@ -141,40 +192,35 @@ Esse comando irá buscar todos os valores na coluna email e substituir todas as 
 
 
 
-## Funções Matematicas
+## Funções Matemáticas
 <p></p>
-Adição de números: Para adicionar números, podemos usar o operador "+". Por exemplo, para somar o salário de todos os
-funcionários:<p></p>
+Adição de números: Para adicionar números, podemos usar o operador "+". Por exemplo, para somar o salário de todos os funcionários:<p></p>
 	
 ```sql
 SELECT SUM(salario) as 'Total Salário' FROM tabela;
 ```
 <p></p>	
-Subtração de números: Para subtrair números, podemos usar o operador "-". Por exemplo, para calcular a diferença entre
-as vendas de dois meses:<p></p>
+Subtração de números: Para subtrair números, podemos usar o operador "-". Por exemplo, para calcular a diferença entre as vendas de dois meses:<p></p>
 	
 ```sql	
 SELECT (SELECT SUM(vendas) FROM tabela WHERE mes = 'jan') - (SELECT SUM(vendas) FROM tabela WHERE mes = 'dez') as
 'Diferença de Vendas';
 ```
 <p></p>	
-Multiplicação de números: Para multiplicar números, podemos usar o operador "*". Por exemplo, para calcular o preço
-total de uma compra:<p></p>
+Multiplicação de números: Para multiplicar números, podemos usar o operador "*". Por exemplo, para calcular o preço total de uma compra:<p></p>
 	
 ```sql
 SELECT quantidade * preco as 'Total' FROM tabela;
 ```
 <p></p>	
-Divisão de números: Para dividir números, podemos usar o operador "/". Por exemplo, para calcular a média de vendas por
-mês:<p></p>
+Divisão de números: Para dividir números, podemos usar o operador "/". Por exemplo, para calcular a média de vendas por mês:<p></p>
 	
 ```sql
 SELECT SUM(vendas) / COUNT(DISTINCT mes) as 'Média de Vendas' FROM tabela;
 ```
 <p></p>
-Aqui está um exemplo de como combinar operações matemáticas de soma, divisão e subtração em uma única conta em uma
-consulta My:<p></p>
-	
+Aqui está um exemplo de como combinar operações matemáticas de soma, divisão e subtração em uma única conta :<p></p>
+
 ```sql
 SELECT (SUM(vendas) - SUM(devolucoes)) / COUNT(DISTINCT mes) as 'Média de Lucro' FROM tabela;
 ```
@@ -186,10 +232,24 @@ número de meses distintos.
 ```sql
 SELECT (SUM(quantidade) * preco) - (SUM(quantidade) * preco * desconto/100) as 'Total com Desconto' FROM tabela;
 ```
-	
 Esse comando irá calcular o total com desconto, multiplicando a quantidade pelo preco e subtraindo o valor do desconto.
+<p></p>
 	
-
+```sql
+SELECT (quantidade * preco) - desconto AS total_com_desconto FROM tabela;	
+```
+<p></p>
+Esse comando irá calcular o  calcular as vendas de um vendedor por dia.
+<p></p>
+	
+```sql
+SELECT data, vendedor, SUM(valor_venda) AS 'total_vendido'
+FROM tabela
+GROUP BY data, vendedor;
+```
+<p></p>
+Nessa consulta, a cláusula GROUP BY agrupa as vendas por data e vendedor, e a função SUM soma o valor de cada venda. O resultado será uma tabela com a data, o nome do vendedor e o total de vendas para cada combinação de data e vendedor.
+	
 ## Outros
 
 SUBQUERY: Utiliza uma consulta dentro de outra consulta.<p></p>
@@ -324,7 +384,6 @@ WHERE condicao;
 ```
 
 
-Exemplos de consultas DML mais complexas:
 
 
 JOIN com subquery: Utiliza uma subquery para selecionar dados de uma tabela relacionada antes de juntá-los à tabela
@@ -367,6 +426,32 @@ WHERE a.coluna3 = 'valor';
 </details>
 
 
+<p></p>
+Aqui está um exemplo de consulta SQL com múltiplos joins:
+<p></p>
+Esta consulta seleciona informações de nome de cliente, data do pedido, nome do produto, quantidade do produto e preço do produto de uma tabela de clientes, tabela de pedidos e tabela de itens de pedidos. A consulta faz um INNER JOIN das três tabelas com base nas chaves estrangeiras, e usa uma cláusula WHERE para filtrar os resultados para o nome "Diogo" e a data entre 01/01/2022 e 31/12/2022.
+<p></p>
+
+```sql
+SELECT clientes.nome, pedidos.data, itens_pedido.produto, itens_pedido.quantidade, itens_pedido.preco
+FROM clientes
+INNER JOIN pedidos ON clientes.id = pedidos.id_cliente
+INNER JOIN itens_pedido ON pedidos.id = itens_pedido.id_pedido and pedidos.data_fiscal = itens_pedido.data_fiscal
+WHERE clientes.nome = 'Diogo' AND pedidos.data BETWEEN '2022-01-01' AND '2022-12-31'
+```
+<p></p>
+Para melhorar a eficiência e clareza do código, é uma boa prática utilizar nomes abreviados das tabelas nas consultas.
+<p></p>
+
+```sql
+SELECT cl.nome, ped.data, itp.produto, itp.quantidade, itp.preco
+FROM clientes cl
+INNER JOIN pedidos ped ON cl.id = ped.id_cliente
+INNER JOIN itens_pedido itp ON ped.id = itp.id_pedido
+WHERE cl.nome = 'Diogo' AND ped.data BETWEEN '2022-01-01' AND '2022-12-31'
+```
+<p></p>
+
 
 
 Observação estes exemplos de join podem ser utilizando não somente em SELECT mas tambem em UPDATE,DELETE ao utilizar deve-se tomar muito cuidado pois pode dar
@@ -375,3 +460,6 @@ perda de dados importantes.
 <br>
 </details>
 <br>
+
+
+Extras:
